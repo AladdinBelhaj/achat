@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    tools {
+        jdk 'jdk17'
+    }
     stages {
       stage('Code checkout from GitHub') {
         steps {
