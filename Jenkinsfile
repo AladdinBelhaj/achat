@@ -36,7 +36,17 @@ pipeline {
        stage('Deploy to Nexus') {
           steps {
             sh 'mvn clean deploy -DskipTests'
+       }  
     }
-}
+      stage('Dockerize project') {
+          steps {
+            sh '''
+             docker build -t achat .
+             docker compose down -v || true
+             docker compose up -d --build
+             '''
+       }
     }
+
+   }
 }
