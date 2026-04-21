@@ -13,7 +13,7 @@ pipeline {
 
         stage('Code checkout from GitHub') {
             steps {
-                git branch: 'jenkinsfile',
+                git branch: 'docker',
                     url: 'https://github.com/AladdinBelhaj/achat.git'
             }
         }
