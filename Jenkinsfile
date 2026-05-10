@@ -62,6 +62,13 @@ pipeline {
              '''
        }
     }
-
+      stage('OWASP ZAP Scan') {
+           steps {
+           sh '''
+           docker run --rm -t owasp/zap2docker-stable \
+           zap-baseline.py -t http://localhost:8089/SpringMVC
+        '''
+    }
+}
    }
 }
