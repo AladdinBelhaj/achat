@@ -38,10 +38,25 @@ pipeline {
             sh 'mvn clean deploy -DskipTests'
        }  
     }
-      stage('Dockerize project') {
+        stage('Dockerize app') {
+            steps {
+                sh '''
+                docker build -t achat .
+                '''
+            }
+        }
+        stage('Trivy Scan') {
+            steps {
+                sh '''
+                docker run --rm \
+                -v /var/run/docker.sock:/var/run/docker.sock \
+                aquasec/trivy image achat
+                '''
+            }
+        }
+      stage('Deploy app') {
           steps {
             sh '''
-             docker build -t achat .
              docker compose down -v || true
              docker compose up -d --build
              '''
