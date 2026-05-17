@@ -23,6 +23,13 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+        stage('Dependency Security Check') {
+            steps {
+                sh '''
+                mvn org.owasp:dependency-check-maven:check
+                '''
+            }
+        }
 
         stage('SonarQube Analysis') {
             steps {
