@@ -66,7 +66,7 @@ pipeline {
            steps {
            sh '''
            docker run --rm -t owasp/zap2docker-stable \
-           zap-baseline.py -t http://172.17.0.1:8089/SpringMVC
+           zap-baseline.py -t http://172.17.0.1:8089/SpringMVC/v3/api-docs
         '''
     }
 }
