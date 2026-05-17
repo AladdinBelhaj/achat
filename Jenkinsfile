@@ -72,7 +72,7 @@ pipeline {
       stage('OWASP ZAP Scan') {
            steps {
            sh '''
-           docker run --rm -t owasp/zap2docker-stable \
+           docker run --rm -t zaproxy/zap-stable \
            zap-api-scan.py -t http://172.17.0.1:8089/SpringMVC/v3/api-docs -f openapi
         '''
     }
