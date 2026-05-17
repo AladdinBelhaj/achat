@@ -52,15 +52,19 @@ pipeline {
                 '''
             }
         }
-        stage('Trivy Scan') {
-            steps {
-                sh '''
-                docker run --rm \
-                -v /var/run/docker.sock:/var/run/docker.sock \
-                aquasec/trivy image achat
-                '''
-            }
-        }
+       stage('Trivy Scan') {
+    steps {
+        sh '''
+        docker run --rm \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        -v $HOME/.cache:/root/.cache \
+        aquasec/trivy image \
+        --scanners vuln \
+        --timeout 30m \
+        achat
+        '''
+    }
+}
       stage('Deploy app') {
           steps {
             sh '''
